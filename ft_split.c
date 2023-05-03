@@ -1,34 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/05/03 15:57:10 by rradules          #+#    #+#             */
+/*   Updated: 2023/05/03 17:32:03 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	**ft_split(char const *s, char c)
 {
-	size_t	result;
-	size_t	sign;
+	size_t	i;
+	size_t	helper;
+	size_t	column;
+	size_t	row;
+	size_t	len;
+	char	**result;
 
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	i = 0;
+	column = 0;
+	row = 0;
+	len = ft_strlen(s);
+	while (s[i])
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		if (s[i] == c)
+		{
+			column++;
+		}
+		i++;
 	}
-	return (result * sign);
+	result = malloc(column + 1);
+	i = 0;
+	while (s[i], i++)
+	{
+		if (s[i] == c)
+		{
+			*result = malloc(i + 1);
+		}
+		i++;
+		helper = i;
+	}
 }
+

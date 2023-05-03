@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/04/12 15:02:13 by rradules          #+#    #+#             */
+/*   Updated: 2023/04/12 15:13:22 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+size_t	ft_strlcpy(char	*dst, const char *src, size_t dstsize)
 {
-	size_t	result;
-	size_t	sign;
+	size_t	i;
 
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	i = 0;
+	if (dstsize == 0)
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		return (ft_strlen(src));
 	}
-	return (result * sign);
+	while (src[i] != 0 && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	return (ft_strlen(src));
 }

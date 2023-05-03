@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/04/12 19:00:18 by rradules          #+#    #+#             */
+/*   Updated: 2023/04/12 19:04:10 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	result;
-	size_t	sign;
+	size_t				d;
+	const unsigned char	*str1;
+	const unsigned char	*str2;
 
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	str1 = (const unsigned char *) s1;
+	str2 = (const unsigned char *) s2;
+	d = 0;
+	while (d < n)
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		if (str1[d] == str2[d])
+			d++;
+		else
+			return (str1[d] - str2[d]);
 	}
-	return (result * sign);
+	return (0);
 }

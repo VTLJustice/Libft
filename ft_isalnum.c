@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/03/13 18:58:28 by rradules          #+#    #+#             */
+/*   Updated: 2023/03/13 20:55:19 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_isalnum(int a)
 {
-	size_t	result;
-	size_t	sign;
-
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	if ((a >= 65 && a <= 90) || (a >= 97 && a <= 122))
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		return (1);
 	}
-	return (result * sign);
+	else if (a >= 48 && a <= 57)
+	{
+		return (1);
+	}
+	return (0);
 }
+/*
+int	main(void)
+{
+	printf("%d", ft_isalnum('!'));
+	return (0);
+}*/

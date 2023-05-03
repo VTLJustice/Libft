@@ -1,34 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/03/15 18:02:43 by rradules          #+#    #+#             */
+/*   Updated: 2023/03/15 19:13:49 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
+//#include <stdio.h>
+//#include <string.h>
 
-int	ft_atoi(const char *str)
+void	*ft_memset(void *str, size_t c, size_t n)
 {
-	size_t	result;
-	size_t	sign;
+	size_t			a;
+	unsigned char	*b;
 
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	a = 0;
+	b = (unsigned char *)str;
+	while (a < n)
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		*b = (unsigned char)c;
+		a++;
+		b++;
 	}
-	return (result * sign);
+	return (str);
 }
+/*
+int	main()
+{
+	char str[50];
+
+	strcpy(str, "Esto es un ejemplo para ver como funciona");
+	puts(str);
+
+	ft_memset(str, 'A', 10);
+	puts(str);
+
+	return (0);
+}*/

@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/04/27 17:41:33 by rradules          #+#    #+#             */
+/*   Updated: 2023/05/03 15:04:53 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	result;
-	size_t	sign;
+	char			*subs;
+	unsigned int	d;
+	unsigned int	i;
+	unsigned int	a;
 
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	a = ft_strlen(s);
+	i = start;
+	if (len + start > a)
+		len = a - start;
+	if (start > a)
+		return (ft_strdup(""));
+	subs = malloc(len + 1);
+	if (!(subs))
+		return (NULL);
+	d = 0;
+	while (d < len && a > start)
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		subs[d] = s[i];
+		d++;
+		i++;
 	}
-	return (result * sign);
+	subs[d] = '\0';
+	return (subs);
 }
