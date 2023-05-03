@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 19:15:33 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:59 by rradules         ###   ########.fr       */
+/*   Created: 2023/04/12 18:56:26 by rradules          #+#    #+#             */
+/*   Updated: 2023/04/12 18:58:37 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t	result;
-	size_t	sign;
+	size_t			d;
+	unsigned char	*str;
+	unsigned char	to_find;
 
-	result = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || (*str == 32))
-		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
+	d = 0;
+	str = (unsigned char *) s;
+	to_find = (unsigned char) c;
+	while (d < n)
 	{
-		result = result * 10 + *str - '0';
-		str++;
+		if (str[d] == to_find)
+			return (&str[d]);
+		d++;
 	}
-	return (result * sign);
+	return (NULL);
 }
