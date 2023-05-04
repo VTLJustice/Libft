@@ -10,39 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-char	**ft_split(char const *s, char c)
+char    **ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	helper;
-	size_t	column;
-	size_t	row;
-	size_t	len;
-	char	**result;
+    size_t  i;
+    size_t  j;
+    size_t  k;
+    size_t  len;
+    char **result;
 
-	i = 0;
-	column = 0;
-	row = 0;
-	len = ft_strlen(s);
-	while (s[i])
-	{
-		if (s[i] == c)
-		{
-			column++;
-		}
-		i++;
-	}
-	result = malloc(column + 1);
-	i = 0;
-	while (s[i], i++)
-	{
-		if (s[i] == c)
-		{
-			*result = malloc(i + 1);
-		}
-		i++;
-		helper = i;
-	}
+    len = strlen(s);
+    result = malloc(sizeof(char *) * (len + 1));
+    if (!result)
+        return NULL;
+
+    i = 0;
+    while (i < len)
+    {
+        while (s[i] == c)
+            i++;
+        if (s[i] == '\0')
+            break;
+        j = i;
+        while (s[j] != c && s[j] != '\0')
+            j++;
+        result[k] = malloc(sizeof(char) * (j - i + 1));
+        if (!result[k])
+            return NULL;
+        strncpy(result[k], &s[i], j - i);
+        result[k][j - i] = '\0';
+        k++;
+        i = j;
+    }
+    result[k] = NULL;
+    return result;
 }
-
+/*
+int main()
+{
+    char s[] = "Astu pata pota";
+    char c = ' ';
+    char **result = ft_split(s, c);
+    if (result)
+    {
+        for (int i = 0; result[i] != NULL; i++)
+        printf("%s\n", result[i]);
+            free(result);
+    }
+    return 0;
+}*/
