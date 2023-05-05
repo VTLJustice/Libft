@@ -5,12 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 15:57:10 by rradules          #+#    #+#             */
-/*   Updated: 2023/05/05 19:38:42 by rradules         ###   ########.fr       */
+/*   Created: 2023/05/05 19:31:26 by rradules          #+#    #+#             */
+/*   Updated: 2023/05/05 20:22:26 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
+
+int	count_words(char const *s, char c)
+{
+	int	i;
+	int	words;
+
+	i = 0;
+	words = 0;
+	while (s[i])
+	{
+		if (s[i] != c && (i == 0 || s[i - 1] == c))
+		{
+			words++;
+		}
+		i++;
+	}
+	return (words);
+}
 
 char	**ft_split(char const *s, char c)
 {
@@ -21,7 +38,7 @@ char	**ft_split(char const *s, char c)
 	char	**result;
 
 	len = ft_strlen(s);
-	result = malloc((len + 1) * sizeof(char *));
+	result = malloc(((count_words(s, c)) + 1) * sizeof(char *));
 	k = 0;
 	if (!result)
 		return (NULL);
