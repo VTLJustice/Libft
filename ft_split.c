@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/05 19:31:26 by rradules          #+#    #+#             */
-/*   Updated: 2023/05/05 20:22:26 by rradules         ###   ########.fr       */
+/*   Created: 2023/05/03 15:57:10 by rradules          #+#    #+#             */
+/*   Updated: 2023/05/05 21:03:05 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -29,37 +29,53 @@ int	count_words(char const *s, char c)
 	return (words);
 }
 
-char	**ft_split(char const *s, char c)
+static size_t	get_word_len(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
 	size_t	len;
+
+	len = 0;
+	while (s[len] && s[len] != c)
+		len++;
+	return (len);
+}
+
+static char	**allocate_result(int num_words)
+{
 	char	**result;
 
-	len = ft_strlen(s);
-	result = malloc(((count_words(s, c)) + 1) * sizeof(char *));
-	k = 0;
+	result = malloc((num_words + 1) * sizeof(char *));
+	if (!result)
+		return (NULL);
+	result[num_words] = NULL;
+	return (result);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	int		num_words;
+	int		i;
+	int		j;
+	size_t	word_len;
+	char	**result;
+
+	num_words = count_words(s, c);
+	result = allocate_result(num_words);
 	if (!result)
 		return (NULL);
 	i = 0;
-	while (i < len)
+	j = 0;
+	while (j < num_words)
 	{
 		while (s[i] == c)
 			i++;
-		if (s[i] == '\0')
-			break ;
-		j = i;
-		while (s[j] != c && s[j] != '\0')
-			j++;
-		result[k] = malloc((j - i + 1) * sizeof(char));
-		if (!result[k])
+		word_len = get_word_len(&s[i], c);
+		result[j] = malloc((word_len + 1) * sizeof(char));
+		if (!result[j])
 			return (NULL);
-		ft_memcpy(result[k], &s[i], (j - i));
-		result[k][j - i] = '\0';
-		k++;
-		i = j;
+		ft_memcpy(result[j], &s[i], word_len);
+		result[j][word_len] = '\0';
+		i = i + word_len;
+		j++;
 	}
-	result[k] = NULL;
 	return (result);
 }
