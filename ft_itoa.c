@@ -1,58 +1,61 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/05 15:04:28 by rradules          #+#    #+#             */
+/*   Updated: 2023/05/05 19:29:32 by rradules         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
-char *ft_itoa(int n)
+static int	get_num_len(int n, int is_negative)
 {
-    int is_negative;
-    int temp;
-    int len;
-    char *str;
+	int	len;
 
-    temp = n;
-    len = 1;
-    is_negative = 0;
-    // determinar si el número es negativo
-    if (n < 0)
-    {
-        is_negative = 1;
-        temp = -n;
-        len++;
-    }
-
-    // contar la cantidad de dígitos en el número
-    while (temp > 9)
-    {
-        len++;
-        temp = temp / 10;
-    }
-
-    // asignar memoria para la cadena que se devolverá
-    str = (char *)malloc(len + 1);
-
-    // en caso de que la asignación de memoria falle
-    if (str == NULL)
-        return NULL;
-
-    // establecer el carácter final de la cadena
-    str[len] = '\0';
-
-    // convertir los dígitos en caracteres y agregarlos a la cadena
-    while (len--)
-    {
-        str[len] = n % 10 + '0';
-        n /= 10;
-    }
-
-    // agregar el signo negativo si es necesario
-    if (is_negative)
-        str[0] = '-';
-
-    return str;
+	len = 0;
+	if (n == 0)
+		return (1);
+	if (is_negative == 1)
+	{
+		len++;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		len++;
+	}
+	return (len);
 }
-/*
-int main()
+
+char	*ft_itoa(int n)
 {
-  int n = -8763;
-  printf("%s", ft_itoa(n));
-  return 0;
-}*/
+	int		is_negative;
+	int		len;
+	char	*str;
+
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	is_negative = 0;
+	if (n < 0)
+	{
+		is_negative = 1;
+		n = -n;
+	}
+	len = get_num_len(n, is_negative);
+	str = (char *)malloc((len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	while (len--)
+	{
+		str[len] = n % 10 + '0';
+		n = n / 10;
+	}
+	if (is_negative)
+		str[0] = '-';
+	return (str);
+}
