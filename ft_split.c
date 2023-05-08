@@ -6,7 +6,7 @@
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:57:10 by rradules          #+#    #+#             */
-/*   Updated: 2023/05/05 21:03:05 by rradules         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:28:56 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
@@ -63,8 +63,8 @@ char	**ft_split(char const *s, char c)
 	if (!result)
 		return (NULL);
 	i = 0;
-	j = 0;
-	while (j < num_words)
+	j = -1;
+	while (++j < num_words)
 	{
 		while (s[i] == c)
 			i++;
@@ -75,7 +75,6 @@ char	**ft_split(char const *s, char c)
 		ft_memcpy(result[j], &s[i], word_len);
 		result[j][word_len] = '\0';
 		i = i + word_len;
-		j++;
 	}
 	return (result);
 }
