@@ -6,7 +6,7 @@
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:54:24 by rradules          #+#    #+#             */
-/*   Updated: 2023/04/27 19:28:10 by rradules         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:07:35 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 char	*ft_substring(char *s1, char *s2, char *s3)
 {
-	size_t	c;
-	size_t	d;
+	size_t	i;
+	size_t	j;
 
-	d = 0;
-	c = 0;
-	while (s1[c] != 0)
+	j = 0;
+	i = 0;
+	while (s1[i] != 0)
 	{
-		s3[d] = s1[c];
-		c++;
-		d++;
+		s3[j] = s1[i];
+		i++;
+		j++;
 	}
-	c = 0;
-	while (s2[c] != 0)
+	i = 0;
+	while (s2[i] != 0)
 	{
-		s3[d] = s2[c];
-		c++;
-		d++;
+		s3[j] = s2[i];
+		i++;
+		j++;
 	}
-	s3[d] = '\0';
+	s3[j] = '\0';
 	return (s3);
 }
 
@@ -40,12 +40,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*dest;
 	char	*src;
-	char	*subs;
+	char	*str;
 
 	dest = (char *)s1;
 	src = (char *)s2;
-	subs = malloc(ft_strlen(dest) + ft_strlen(src) + 1);
-	if (!(subs))
+	str = malloc(ft_strlen(dest) + ft_strlen(src) + 1);
+	if (!str)
 		return (NULL);
-	return (ft_substring(dest, src, subs));
+	return (ft_substring(dest, src, str));
 }

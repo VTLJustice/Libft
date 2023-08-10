@@ -34,23 +34,41 @@ MY_SOURCES = ft_isalpha.c \
 			 ft_putstr_fd.c \
 			 ft_putendl_fd.c \
 			 ft_putnbr_fd.c \
+
+MY_BONUS =  ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c \
+			ft_lstdelone.c \
+			ft_lstclear.c \
+			ft_lstiter.c \
+			ft_lstmap.c
 			 
 MY_OBJECTS = $(MY_SOURCES:.c=.o)
+
+MY_BONUS_OBJECTS = $(MY_BONUS:.c=.o)
 
 CC = gcc
 CFLAGS += -Wall -Werror -Wextra
 
-.PHONY: all clean fclean re
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 $(NAME): $(MY_OBJECTS)
 	@ar r $(NAME) $(MY_OBJECTS)
 
 all: $(NAME)
 
+bonus: $(MY_BONUS_OBJECTS)
+	@ar r $(NAME) $(MY_BONUS_OBJECTS)
+
 clean:
-	rm -f $(MY_OBJECTS)
+	rm -f $(MY_OBJECTS) $(MY_BONUS_OBJECTS)
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

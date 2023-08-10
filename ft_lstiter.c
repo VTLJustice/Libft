@@ -1,52 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rradules <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 19:21:16 by rradules          #+#    #+#             */
-/*   Updated: 2023/05/12 19:38:55 by rradules         ###   ########.fr       */
+/*   Created: 2023/05/09 15:08:40 by rradules          #+#    #+#             */
+/*   Updated: 2023/05/12 19:44:02 by rradules         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_list *lst)
+void	ft_lstiter(t_list *lst, void (*f) (void *))
 {
-	int		size;
-
-	size = 0;
+	if (!lst || !f)
+		return ;
 	while (lst)
 	{
+		f(lst->content);
 		lst = lst->next;
-		size++;
 	}
-	return (size);
 }
-/*int	main(void)
+/*void	print_double(void *data)
 {
-	t_list *list = NULL;
-	t_list *node1 = ft_lstnew(malloc(sizeof(int)));
-	t_list *node2 = ft_lstnew(malloc(sizeof(int)));
-	t_list *node3 = ft_lstnew(malloc(sizeof(int)));
+	double *value = (double *)data;
+	printf("%.2f\n", *value);
+}
 
-	if (!node1 || !node2 || !node3)
+int	main(void)
+{
+	t_list *list = ft_lstnew(malloc(sizeof(double)));
+	t_list *node1 = ft_lstnew(malloc(sizeof(double)));
+	t_list *node2 = ft_lstnew(malloc(sizeof(double)));
+
+	if (!list || !node1 || !node2)
 	{
 		printf("Failed to allocate memory for nodes.\n");
 		return 1;
 	}
 
-	*(int *)node1->content = 1;
-	*(int *)node2->content = 2;
-	*(int *)node3->content = 3;
+	*(double *)list->content = 3.14;
+	*(double *)node1->content = 2.718;
+	*(double *)node2->content = 1.618;
 
-	list = node1;
+	list->next = node1;
 	node1->next = node2;
-	node2->next = node3;
 
-	int size = ft_lstsize(list);
-	printf("Size of the list: %d\n", size);
+	printf("List before iteration:\n");
+	ft_lstiter(list, print_double);
 
 	// Clean up the list
 	ft_lstclear(&list, free);
